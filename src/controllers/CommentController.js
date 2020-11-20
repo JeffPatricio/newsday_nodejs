@@ -10,7 +10,7 @@ module.exports = {
       comment: { ...comment, id }
     });
     return res.json({
-      success: true,
+      success: false,
       message: 'Ocorreu um erro ao comentar a notícia'
     });
   }

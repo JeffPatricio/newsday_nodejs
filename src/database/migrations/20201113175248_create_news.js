@@ -4,6 +4,7 @@ exports.up = (knex) => {
     table.string('title').notNullable();
     table.boolean('content').notNullable();
     table.string('image').notNullable();
+    table.integer('user_id').notNullable();
   });
 };
 

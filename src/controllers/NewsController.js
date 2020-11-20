@@ -19,7 +19,7 @@ module.exports = {
         news: { ...news, id }
       });
       return res.json({
-        success: true,
+        success: false,
         message: 'Ocorreu um erro ao criar a notícia'
       });
     });
@@ -37,7 +37,13 @@ module.exports = {
   read: async (req, res) => {
     const { id } = req.params;
     const news = await database('news').select(['*']).where({ id }).first();
-    const comments = await database('comments').select(['*']).where({ news_id: id }).orderBy('id', 'desc');
+    const comments = await database('comments')
+      .select(['*'])
+      .where({ news_id: id })
+      .orderBy('id', 'desc')
+      .join('users', { 'comments.user_id': 'users.id' })
+      .select('users.name','users.photo');
+
     if (!!news) return res.json({
       success: true,
       message: 'OK',
