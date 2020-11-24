@@ -9,7 +9,7 @@ module.exports = {
     if (!!id) return res.json({
       success: true,
       message: 'Usuário criado com sucesso.',
-      user: { id, name: user.name, email: user.email }
+      user_id: id
     });
     return res.json({
       success: false,
@@ -32,10 +32,13 @@ module.exports = {
       if (req.file) userUpdate.photo = `http://localhost:3001/images/${req.file.filename}`;
 
       if (user.currentPassword) {
-        const userConfirmPassword = await database('users').select('password').where({
-          id: user.user_id,
-          password: user.currentPassword
-        }).first();
+        const userConfirmPassword = await database('users')
+          .select('password')
+          .where({
+            id: user.user_id,
+            password: user.currentPassword
+          })
+          .first();
 
         if (!userConfirmPassword) return res.json({
           success: false,
@@ -44,13 +47,14 @@ module.exports = {
         });
 
         userUpdate.password = user.newPassword;
-
       }
 
       userUpdate.name = user.name;
       userUpdate.email = user.email;
 
-      const updated = await database('users').where({ id: user.user_id }).update(userUpdate);
+      const updated = await database('users')
+        .where({ id: user.user_id })
+        .update(userUpdate);
       if (updated === 1) return res.json({
         success: true,
         message: 'Usuário atualizado com sucesso',

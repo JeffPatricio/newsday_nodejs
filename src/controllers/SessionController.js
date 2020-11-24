@@ -11,12 +11,10 @@ module.exports = {
       user: {}
     });
 
-    delete user.password;
-
     return res.status(200).json({
       success: true,
       message: 'Ok',
-      user
+      user_id: user.id
     });
   }
 }
