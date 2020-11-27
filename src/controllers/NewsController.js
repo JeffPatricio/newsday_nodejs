@@ -38,11 +38,10 @@ module.exports = {
     const { id } = req.params;
     const news = await database('news').select(['*']).where({ id }).first();
     const comments = await database('comments')
-      .select(['*'])
       .where({ news_id: id })
-      .orderBy('id', 'desc')
+      .orderBy('comments.id', 'desc')
       .join('users', { 'comments.user_id': 'users.id' })
-      .select('users.name','users.photo');
+      .select(['users.name as user_name', 'users.photo as user_photo', 'comments.*']);
 
     if (!!news) return res.json({
       success: true,
