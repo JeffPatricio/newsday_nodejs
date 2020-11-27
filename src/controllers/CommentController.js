@@ -7,16 +7,12 @@ module.exports = {
 
     if (!!id) {
 
-      const user = await database('users').select(['*']).where({ id: comment.user_id }).first();
-
-      delete user.password;
-      delete user.email;
-      delete comment.user_id;
+      const user = await database('users').select(['users.name as user_name', 'users.photo as user_photo']).where({ id: comment.user_id }).first();
 
       return res.json({
         success: true,
         message: 'Notícia comentada com sucesso.',
-        comment: { ...comment, id, user }
+        comment: { ...comment, id, ...user }
       });
     }
 
