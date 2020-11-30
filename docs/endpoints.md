@@ -2,10 +2,10 @@
 * Cadastrar notícias
 
 Entrada (body):
-- title *: título da notícia
-- content *: texto da notícia
-- file *: imagem da notícia
-- user_id *: id do usuário criador da notícia
+- title (*): título da notícia
+- content (*): texto da notícia
+- file (*): imagem da notícia
+- user_id (*): id do usuário criador da notícia
 
 Saída:
 - success: informa se a operação ocorreu com sucesso
@@ -18,9 +18,9 @@ Saída:
 * Comentar notícias
 
 Entrada (body):
-- news_id *: id da notícia a ser comentada
-- user_id *: id do usuário que está comentando
-- text *: texto do comentário
+- news_id (*): id da notícia a ser comentada
+- user_id (*): id do usuário que está comentando
+- text (*): texto do comentário
 
 Saída:
 - success: informa se a operação ocorreu com sucesso
@@ -29,11 +29,14 @@ Saída:
 
 ============================================================
 
-# GET (/news)
+# GET (/news?search)
 * Lista todas as notícias ordenadas por cadastro
 
-Entrada:
--
+Entrada (URL):
+- search: Busca de notícias por título ou conteúdo
+
+Entrada (headers):
+- user_id: Busca de notícias por id do usuário
 
 Saída:
 - success: informa se a operação ocorreu com sucesso
@@ -46,7 +49,7 @@ Saída:
 * Lista os detalhes e comentários da notícia
 
 Entrada (URL):
-- id *: id da notícia recebido na URL
+- id (*): id da notícia recebido na URL
 
 Saída:
 - success: informa se a operação ocorreu com sucesso
@@ -59,9 +62,9 @@ Saída:
 * Cadastrar usuários
 
 Entrada (body):
-- name *: nome do usuário
-- email *: email do usuário
-- password *: senha do usuário
+- name (*): nome do usuário
+- email (*): email do usuário
+- password (*): senha do usuário
 
 Saída:
 - success: informa se a operação ocorreu com sucesso
@@ -74,8 +77,8 @@ Saída:
 * Fazer login
 
 Entrada (body):
-- email *: email do usuário
-- password *: senha do usuário
+- email (*): email do usuário
+- password (*): senha do usuário
 
 Saída:
 - success: informa se a operação ocorreu com sucesso
@@ -88,9 +91,9 @@ Saída:
 * Atualizar os dados do usuário
 
 Entrada (body):
-- user_id *: id do usuário
-- name *: nome do usuário
-- email *: email do usuário
+- user_id (*): id do usuário
+- name (*): nome do usuário
+- email (*): email do usuário
 - file: imagem do usuário
 - removePhoto: flag para definir se é pra remover a foto ou não
 - currentPassword: senha atual do usuário

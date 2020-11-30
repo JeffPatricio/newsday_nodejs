@@ -26,7 +26,22 @@ module.exports = {
   },
 
   index: async (req, res) => {
-    const news = await database('news').select(['*']).orderBy('id', 'desc');
+
+    const news = await database('news')
+      .select(['*'])
+      .orderBy('id', 'desc')
+      .where((builder) => {
+        if (req.query.search) {
+          builder
+            .where('title', 'like', `%${req.query.search || ''}%`)
+            .orWhere('content', 'like', `%${req.query.search || ''}%`);
+        }
+      })
+      .andWhere((builder) => {
+        if (req.headers.user_id) {
+          builder.andWhere('user_id', req.headers.user_id);
+        }
+      });
     return res.json({
       success: true,
       message: 'OK',
@@ -52,5 +67,42 @@ module.exports = {
       success: false,
       message: 'Not Found'
     });
-  }
+  },
+
+  update: async (req, res) => {
+    const upload = multer(multerConfig).single('file');
+    return upload(req, res, async err => {
+      if (err) return res.json({
+        success: false,
+        message: 'Erro ao fazer upload de arquivo'
+      });
+
+      const news = req.body;
+      const newsUpdate = {}
+
+      newsUpdate.title = news.title;
+      newsUpdate.content = news.content;
+
+      if (req.file) newsUpdate.image = `http://localhost:3001/images/${req.file.filename}`;
+
+      const updated = await database('news')
+        .where({ id: news.news_id })
+        .update(newsUpdate);
+      if (updated === 1) return res.json({
+        success: true,
+        message: 'Notícia atualizada com sucesso',
+        news: {
+          id: news.news_id,
+          title: newsUpdate.title,
+          email: newsUpdate.content,
+          image: newsUpdate.image
+        }
+      });
+      return res.json({
+        success: false,
+        message: 'Ocorreu um erro ao atualizar a notícia',
+        news: {}
+      });
+    });
+  },
 }

@@ -1,6 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const routes = require('./routes');
+const path = require('path');
+const fs = require('fs');
+
+if (!fs.existsSync(path.resolve(__dirname, "..", "uploads"))) {
+  fs.mkdirSync(path.resolve(__dirname, "..", "uploads"));
+}
 
 const app = express();
 

@@ -10,6 +10,7 @@ const routes = express.Router();
 routes.use('/images', express.static(path.resolve(__dirname, '..', 'uploads')));
 
 routes.post('/news', NewsController.create);
+routes.put('/news', NewsController.update);
 routes.get('/news', NewsController.index);
 routes.get('/news/:id', NewsController.read);
 
