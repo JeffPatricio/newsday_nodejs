@@ -105,3 +105,19 @@ Saída:
 - user { id, name, email, photo }: dados do usuário
 
 ============================================================
+
+# PUT (/news) (Multipart form)
+* Atualizar os dados da notícia
+
+Entrada (body):
+- title (*): título da notícia
+- content (*): conteúdo da notícia
+- news_id (*): id da notícia
+- file : imagem da notícia
+
+Saída:
+- success: informa se a operação ocorreu com sucesso
+- message: mensagem informativa da operação
+- news { id, title, content, image } : detalhes da notícia
+
+============================================================
