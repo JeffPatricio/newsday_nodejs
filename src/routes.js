@@ -13,6 +13,7 @@ routes.post('/news', NewsController.create);
 routes.put('/news', NewsController.update);
 routes.get('/news', NewsController.index);
 routes.get('/news/:id', NewsController.read);
+routes.delete('/news/:id', NewsController.delete);
 
 routes.post('/comments', CommentController.create);
 
@@ -24,10 +25,17 @@ routes.post('/sessions', SessionController.create);
 
 routes.get('/', (req, res) => {
   return res.json({
-    news: {
-      post: ''
-    }
+    success: true,
+    message: 'OK'
   })
+});
+
+routes.use((error, req, res, next) => {
+  console.log(error);
+  return res.json({
+    success: false,
+    message: 'Erro interno no servidor'
+  });
 });
 
 module.exports = routes;

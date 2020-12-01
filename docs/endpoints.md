@@ -121,3 +121,15 @@ Saída:
 - news { id, title, content, image } : detalhes da notícia
 
 ============================================================
+
+# DELETE (/news/:id)
+* Excluir determinada notícia
+
+Entrada (URL):
+- id (*): id da notícia recebido na URL
+
+Saída:
+- success: informa se a operação ocorreu com sucesso
+- message: mensagem informativa da operação
+
+============================================================

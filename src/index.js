@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors');
 const cors = require('cors');
 const routes = require('./routes');
 const path = require('path');
@@ -16,4 +17,6 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(process.env.PORT || 3001, () => console.log(`Server running in port ${process.env.PORT || 3001}`));
+app.listen(3001, () => {
+  console.log(`Server running in port 3001`)
+});

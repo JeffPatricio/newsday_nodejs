@@ -105,4 +105,18 @@ module.exports = {
       });
     });
   },
+
+  delete: async (req, res) => {
+    const deleted = await database('news').where('id', req.params.id).delete();
+
+    if (deleted === 1) return res.json({
+      success: true,
+      message: 'Notícia excluída com sucesso'
+    });
+
+    return res.json({
+      success: false,
+      message: 'Notícia não encontrada'
+    });
+  }
 }
